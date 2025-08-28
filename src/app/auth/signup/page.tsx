@@ -94,35 +94,8 @@ export default function SignupPage() {
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Account Type
-                            </label>
-                            <div className="flex space-x-4">
-                                <label className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="customer"
-                                        checked={credentials.role === 'customer'}
-                                        onChange={(e) => setCredentials({ ...credentials, role: e.target.value as 'customer' | 'admin' })}
-                                        className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
-                                    />
-                                    <span className="ml-2 block text-sm text-gray-700">Customer</span>
-                                </label>
-                                <label className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="admin"
-                                        checked={credentials.role === 'admin'}
-                                        onChange={(e) => setCredentials({ ...credentials, role: e.target.value as 'customer' | 'admin' })}
-                                        className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
-                                    />
-                                    <span className="ml-2 block text-sm text-gray-700">Admin</span>
-                                </label>
-                            </div>
-                        </div>
+
+
                     </div>
 
                     <div>

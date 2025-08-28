@@ -1,9 +1,10 @@
 'use client';
 
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getToken } from '@/utils/helper';
+import { customerApi } from '@/services/api';
 
 
 interface UserProfile {
@@ -19,24 +20,28 @@ export default function CustomerDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const checkAuth = () => {
-            const token = getToken();
+        const fetchProfile = async () => {
+            try {
+                const token = getToken();
+                if (!token) {
+                    router.push('/auth/login');
+                    return;
+                }
 
-            if (!token) {
+                const profile = await customerApi.getProfile();
+                setUserProfile({
+                    ...profile,
+                    token: token
+                });
+            } catch (error) {
+                console.error('Error fetching profile:', error);
                 router.push('/auth/login');
-                return;
+            } finally {
+                setLoading(false);
             }
-
-            //örnek api( kendi apimizi tasarladıktan sonra burada kullanacağız! )
-            setUserProfile({
-                name: "ilker",
-                email: "ilker@hotmail.com",
-                role: "customer",
-                token: token
-            });
-            setLoading(false);
         };
-        checkAuth();
+
+        fetchProfile();
     }, [router]);
 
     if (loading) {

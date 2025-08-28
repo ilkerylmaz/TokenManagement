@@ -4,6 +4,7 @@ export interface User {
     password: string;
     role: 'admin' | 'customer';
     name: string;
+    created_at: string;
 }
 
 export interface AuthResponse {

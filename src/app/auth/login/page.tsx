@@ -17,15 +17,7 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            if (credentials.email && credentials.password) {
-                setError('');
-                console.log('Login successful');
-            } else {
-                setError('Please fill in all fields');
-            }
-        }, 1500);
+
         try {
             const response = await login(credentials);
             if (response.user.role === 'admin') {
@@ -33,9 +25,13 @@ export default function LoginPage() {
             } else {
                 router.push('/customer/dashboard');
             }
+
         } catch (error) {
             setError('Login failed');
+        } finally {
+            setIsLoading(false);
         }
+
     };
 
     return (
